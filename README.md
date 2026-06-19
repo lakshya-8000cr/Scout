@@ -1,6 +1,6 @@
 # Scout
 
-Scout is a Kubernetes CLI tool that converts raw Kubernetes data into clean, readable and actionable output.
+Scout is a simple Kubernetes CLI tool that converts raw Kubernetes data into clean, readable and actionable output.
 
 Instead of overwhelming users with hundreds of lines from `kubectl`, Scout focuses on presenting only the information that matters in a simplified and pretty format.
 
