@@ -22,7 +22,7 @@ var eventsCmd = &cobra.Command{ // same thing is repeating in every function 1> 
 		}
 
 		events, err := clientset.CoreV1().
-			Events("default").
+			Events(namespace).
 			List(context.Background(), metav1.ListOptions{})
 
 		if err != nil {

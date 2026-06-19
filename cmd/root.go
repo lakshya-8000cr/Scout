@@ -7,9 +7,21 @@ import (
 	"github.com/spf13/cobra"
 )
 
+var namespace string
+
 var rootCmd = &cobra.Command{
 	Use:   "scout",
 	Short: "Scout your Kubernetes cluster",
+}
+
+func init() {
+	rootCmd.PersistentFlags().StringVarP(
+		&namespace,
+		"namespace",
+		"n",
+		"default",
+		"Kubernetes namespace",
+	)
 }
 
 func Execute() {

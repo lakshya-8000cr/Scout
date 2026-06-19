@@ -30,7 +30,7 @@ var inspectCmd = &cobra.Command{
 		}
 
 		pod, err := clientset.CoreV1().
-			Pods("default").
+			Pods(namespace).
 			Get(context.Background(), podName, metav1.GetOptions{})
 
 		if err != nil {

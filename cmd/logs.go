@@ -30,7 +30,7 @@ var logsCmd = &cobra.Command{
 
 		logs, err := k8s.GetPodLogs(
 			clientset,
-			"default", // namespace
+			namespace, // namespace
 			podName,
 			lines,
 		)

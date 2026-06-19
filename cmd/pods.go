@@ -25,7 +25,7 @@ var podsCmd = &cobra.Command{
 		}
 
 		pods, err := clientset.CoreV1(). // v1 refers to all the resources like deployments , services , pods etc 
-			Pods("default").  // show pods in default namespce
+			Pods(namespace).  // show pods in default namespce
 			List(
 				context.Background(),
 				metav1.ListOptions{}, // list all
