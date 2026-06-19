@@ -93,19 +93,22 @@ func printPod(label, name, status string, restarts int) {
 
 func printLabel(label, msg string) {
 	switch label {
-	case "READY":
-		color.New(color.BgGreen, color.FgBlack, color.Bold).Printf(" %-7s ", label)
-		fmt.Println(" " + msg)
+	case "INFO":
+		color.New(color.FgGreen, color.Bold).Printf("  ✓ %-8s", label)
+		color.New(color.FgWhite).Println(" " + msg)
 	case "WARN":
-		color.New(color.BgYellow, color.FgBlack, color.Bold).Printf(" %-7s ", label)
-		fmt.Println(" " + msg)
+		color.New(color.FgYellow, color.Bold).Printf("  ⚠ %-8s", label)
+		color.New(color.FgWhite).Println(" " + msg)
 	case "ERROR":
-		color.New(color.BgRed, color.FgWhite, color.Bold).Printf(" %-7s ", label)
-		fmt.Println(" " + msg)
+		color.New(color.FgRed, color.Bold).Printf("  ✗ %-8s", label)
+		color.New(color.FgWhite).Println(" " + msg)
+	case "LOG":
+		color.New(color.FgCyan, color.Bold).Printf("  • %-8s", label)
+		color.New(color.FgWhite).Println(" " + msg)
 	case "SCOUT":
 		color.New(color.BgHiBlue, color.FgWhite, color.Bold).Printf(" %s ", label)
 		color.New(color.Bold, color.FgWhite).Println("  " + msg)
-		color.New(color.Faint).Println("  └───" + "───────────────────────────────────────────────────────────────────────────")
+		color.New(color.Faint).Println("  └───" + "─────────────────────────────────────────────────────────────")
 	default:
 		color.New(color.BgWhite, color.FgBlack, color.Bold).Printf(" %-7s ", label)
 		fmt.Println(" " + msg)

@@ -15,51 +15,51 @@ var logsCmd = &cobra.Command{
 
 	Args: cobra.ExactArgs(1), // passing the api
 
-Run: func(cmd *cobra.Command, args []string) {
+	Run: func(cmd *cobra.Command, args []string) {
 
-	podName := args[0]   // getting the api
+		podName := args[0]   // getting the api
 
-	clientset, err := k8s.NewClient() // hitting the k8s api
+		clientset, err := k8s.NewClient() // hitting the k8s api
 
-	if err != nil {
-		fmt.Println(err)
-		return
-	}
+		if err != nil {
+			fmt.Println(err)
+			return
+		}
 
-	lines := int64(50) 
+		lines := int64(50) 
 
-	logs, err := k8s.GetPodLogs(
-		clientset,
-		"default", // namespace
-		podName,
-		lines,
-	)
+		logs, err := k8s.GetPodLogs(
+			clientset,
+			"default", // namespace
+			podName,
+			lines,
+		)
 
-	if err != nil {
-		fmt.Println(err)
-		return
-	}
+		if err != nil {
+			fmt.Println(err)
+			return
+		}
 
-	fmt.Println()
+		fmt.Println()
 
-	printLabel(
-		"SCOUT",
-		fmt.Sprintf("Logs : %s", podName), //
-	)
+		printLabel(
+			"SCOUT",
+			fmt.Sprintf("Logs : %s", podName), //
+		)
 
-	fmt.Println()
+		fmt.Println()
 
-for _, line := range strings.Split(logs, "\n") {  // logs printing thru loop line by line 
+		for _, line := range strings.Split(logs, "\n") {  // logs printing thru loop line by line 
 
-	if line == "" {
-		continue
-	}
+			if line == "" {
+				continue
+			}
 
-	printLogLine(line)
-}
+			printLogLine(line)
+		}
 
-	fmt.Println()
-},
+		fmt.Println()
+	},
 }
 
 func init() {
