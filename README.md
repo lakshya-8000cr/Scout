@@ -8,6 +8,38 @@ Instead of overwhelming users with hundreds of lines from `kubectl`, Scout focus
 
 ---
 
+## Installation
+
+### Windows (Recommended)
+
+Open PowerShell and run:
+
+```powershell
+irm https://raw.githubusercontent.com/lakshya-8000cr/scout/main/install.ps1 | iex
+```
+
+Open a new terminal and verify the installation:
+
+```powershell
+scout pods
+```
+
+---
+
+## Prerequisites
+
+* A Kubernetes cluster (Minikube, EKS, Kind, etc.)
+* A valid `kubectl` configuration (`~/.kube/config`)
+* `metrics-server` enabled for `scout top`
+
+Enable metrics-server (Minikube):
+
+```bash
+minikube addons enable metrics-server
+```
+
+
+
 ## Features
 
 ### Pod Overview
@@ -135,33 +167,6 @@ Supports:
 
 ```bash
 scout top --namespace <app-name>
-```
-
-
----
-
-## Installation
-
-### Build locally
-
-```bash
-go build -o scout.exe
-```
-
-### Run
-
-```bash
-scout pods
-
-scout logs <pod-name>
-
-scout events
-
-scout inspect pod <pod-name>
-
-scout top
-```
-
 ---
 
 ## Tech Stack
@@ -171,14 +176,6 @@ scout top
 * Kubernetes client-go
 * Kubernetes Metrics API
 * GitHub Actions
-
-### Prerequisites
-
-- A Kubernetes cluster (Minikube, EKS, Kind, etc.)
-- A valid `~/.kube/config`
-- `metrics-server` enabled for `scout top`
-
----
 
 ## License
 
