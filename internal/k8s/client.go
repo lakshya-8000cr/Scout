@@ -10,6 +10,8 @@ import (
 	"context"
 	"io"
 
+	"k8s.io/client-go/rest"
+
 	corev1 "k8s.io/api/core/v1"
 )
 
@@ -27,6 +29,17 @@ func NewClient() (*kubernetes.Clientset, error) {
 	}
 
 	return kubernetes.NewForConfig(config)
+}
+
+func NewConfig() (*rest.Config, error) {
+	home, err := os.UserHomeDir()
+	if err != nil {
+		return nil, err
+	}
+
+	kubeconfig := filepath.Join(home, ".kube", "config")
+
+	return clientcmd.BuildConfigFromFlags("", kubeconfig)
 }
 
 func GetPodLogs(
