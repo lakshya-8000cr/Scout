@@ -1,11 +1,12 @@
 package cmd
 
-import (                 // top architecture is lil diff unlike of pods status which are directly available metrics are not available directly
-	"context"            // it have to use metric api which we create thru the config( you can assume this is address of where metric is stored ) 
-	"fmt"                // the  it calls MetricsV1beta1() go and take some cpu/ram , but remember Newconfig doesnot fetch its just adress
+import ( // top architecture is lil diff unlike of pods status which are directly available metrics are not available directly
+	"context" // it have to use metric api which we create thru the config( you can assume this is address of where metric is stored ) 
+	"fmt"     // the  it calls MetricsV1beta1() go and take some cpu/ram , but remember Newconfig doesnot fetch its just adress
 
 	"scout/internal/k8s"
 
+	"github.com/fatih/color"
 	"github.com/spf13/cobra"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	metricsclient "k8s.io/metrics/pkg/client/clientset/versioned"
@@ -52,7 +53,7 @@ var topCmd = &cobra.Command{
 
 			memMB := memBytes / (1024 * 1024)
 
-			fmt.Printf("  │  ├── %-45s CPU: %-8dm MEM: %dMB\n", pod.Name, cpuMilli, memMB)
+			printResourceMetricsLine(pod.Name, cpuMilli, memMB)
 		}
 
 		fmt.Println()
@@ -61,4 +62,23 @@ var topCmd = &cobra.Command{
 
 func init() {
 	rootCmd.AddCommand(topCmd)
+}
+
+func printResourceMetricsLine(podName string, cpu, memory int64) {
+	color.New(color.Faint).Print("  │  ├── ")
+	color.New(color.FgWhite).Printf("%-38s", podName)
+
+	color.New(color.FgHiCyan).Print("CPU: ")
+	if cpu > 500 {
+		color.New(color.FgRed, color.Bold).Printf("%-8dm ", cpu)
+	} else {
+		color.New(color.FgGreen).Printf("%-8dm ", cpu)
+	}
+
+	color.New(color.FgHiCyan).Print("MEM: ")
+	if memory > 1024 {
+		color.New(color.FgYellow, color.Bold).Printf("%dMB\n", memory)
+	} else {
+		color.New(color.FgWhite).Printf("%dMB\n", memory)
+	}
 }
