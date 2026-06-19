@@ -21,7 +21,7 @@ jobs:
         run: go mod download
 
       - name: Format check
-        run: test -z "$(gofmt -l .)"
+        run: test -z "$(gofmt -w .)"
 
       - name: Vet
         run: go vet ./...
