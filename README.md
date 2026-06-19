@@ -172,6 +172,12 @@ scout top
 * Kubernetes Metrics API
 * GitHub Actions
 
+### Prerequisites
+
+- A Kubernetes cluster (Minikube, EKS, Kind, etc.)
+- A valid `~/.kube/config`
+- `metrics-server` enabled for `scout top`
+
 ---
 
 ## License
